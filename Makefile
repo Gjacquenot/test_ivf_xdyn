@@ -45,6 +45,9 @@ cmake-ubuntu-intel-target: xdyn/code/yaml-cpp/CMakeLists.txt
 	    cd $(BUILD_DIR) &&\
 	    cmake -Wno-dev \
 	     -G Ninja \
+	     -D CMAKE_C_COMPILER=icc \
+	     -D CMAKE_CXX_COMPILER=icpc \
+	     -D CMAKE_FC_COMPILER=ifort \
 	     -D THIRD_PARTY_DIRECTORY=/opt/ \
 	     -D BUILD_DOCUMENTATION:BOOL=False \
 	     -D CPACK_GENERATOR=$(CPACK_GENERATOR) \
