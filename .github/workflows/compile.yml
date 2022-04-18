@@ -21,4 +21,5 @@ jobs:
         sed 's/include "/include </g' run_all_tests.cpp > tmp.cpp
         sed 's/h"/h>/g' tmp.cpp > run_all_tests.cpp
         cd ../../../..
+        echo "INCLUDE_DIRECTORIES(SYSTEM \${GRPC_INCLUDE_DIR})" >> xdyn/code/CMakeLists.txt
         make
