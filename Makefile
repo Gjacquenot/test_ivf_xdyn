@@ -39,7 +39,7 @@ cmake-ubuntu-intel-target: SHELL:=/bin/bash
 cmake-ubuntu-intel-target: xdyn/code/yaml-cpp/CMakeLists.txt
 	docker pull $(DOCKER_IMAGE) || true
 	$(DOCKER_AS_USER) $(DOCKER_IMAGE) /bin/bash -c \
-	   "source /opt/intel/oneapi/setvars.sh \
+	   "source /opt/intel/oneapi/setvars.sh && \
 	    cd /opt/share &&\
 	    mkdir -p $(BUILD_DIR) &&\
 	    cd $(BUILD_DIR) &&\
@@ -59,7 +59,7 @@ cmake-ubuntu-intel-target: xdyn/code/yaml-cpp/CMakeLists.txt
 build-ubuntu-intel: SHELL:=/bin/bash
 build-ubuntu-intel:
 	$(DOCKER_AS_USER) $(DOCKER_IMAGE) /bin/bash -c \
-	   "source /opt/intel/oneapi/setvars.sh \
+	   "source /opt/intel/oneapi/setvars.sh && \
 	    cd /opt/share && \
 	    mkdir -p $(BUILD_DIR) && \
 	    cd $(BUILD_DIR) && \
