@@ -3,10 +3,19 @@ all: update-submodules ubuntu-intel
 DOCKER_AS_ROOT:=docker run -t --rm -w /opt/share -v $(shell pwd)/xdyn:/opt/share
 DOCKER_AS_USER:=$(DOCKER_AS_ROOT) -u $(shell id -u):$(shell id -g)
 
+MAKE:=make \
+BUILD_TYPE=Release \
+BUILD_DIR=build_deb11 \
+CPACK_GENERATOR=DEB \
+DOCKER_IMAGE=gjacquenot/xdynivf \
+BOOST_ROOT=/opt/boost \
+HDF5_DIR=/usr/local/hdf5/share/cmake \
+BUILD_PYTHON_WRAPPER=False
+
 ubuntu-intel: headers debian_11_release_gcc_10
 
 headers:
-	make -C xdyn headers
+	${MAKE} -C xdyn headers
 
 update-submodules:
 	@echo "Updating Git submodules..."
@@ -24,7 +33,7 @@ debian_11_release_gcc_10: BUILD_PYTHON_WRAPPER = False
 debian_11_release_gcc_10: cmake-ubuntu-intel-target build-ubuntu-intel test-ubuntu-intel
 
 xdyn/code/yaml-cpp/CMakeLists.txt:
-	make -C xdyn code/yaml-cpp/CMakeLists.txt
+	${MAKE} -C xdyn code/yaml-cpp/CMakeLists.txt
 
 cmake-ubuntu-intel-target: SHELL:=/bin/bash
 cmake-ubuntu-intel-target: xdyn/code/yaml-cpp/CMakeLists.txt
@@ -80,5 +89,5 @@ clean:
 	rm -f xdyn.deb
 	rm -rf build_*
 	rm -rf yaml-cpp
-	@make -C doc_user clean; rm -f doc_user/xdyn.deb doc.html
-	@make -C code/wrapper_python clean
+	@${MAKE} -C doc_user clean; rm -f doc_user/xdyn.deb doc.html
+	@${MAKE} -C code/wrapper_python clean
