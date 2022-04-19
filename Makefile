@@ -71,7 +71,8 @@ build-ubuntu-intel:
 test-ubuntu-intel: SHELL:=/bin/bash
 test-ubuntu-intel:
 	$(DOCKER_AS_USER) $(DOCKER_IMAGE) /bin/bash -c \
-	   "cp validation/codecov_bash.sh $(BUILD_DIR) && \
+	   "source /opt/intel/oneapi/setvars.sh && \
+	    cp validation/codecov_bash.sh $(BUILD_DIR) && \
 	    cd $(BUILD_DIR) &&\
 	    ./run_all_tests &&\
 	    if [[ $(BUILD_TYPE) == Coverage ]];\
