@@ -17,9 +17,8 @@ jobs:
     - name: Compile
       run: |
         git clone --recursive https://gitlab.com/sirehna_naval_group/sirehna/xdyn
-        cd xdyn/code/executables/src
-        sed 's/include "/include </g' run_all_tests.cpp > tmp.cpp
-        sed 's/h"/h>/g' tmp.cpp > run_all_tests.cpp
-        cd ../../../..
-        echo "INCLUDE_DIRECTORIES(SYSTEM \${GRPC_INCLUDE_DIR})" >> xdyn/code/CMakeLists.txt
+        cd xdyn
+        git checkout 66-update-code-so-that-it-compiles-with-intel-compilers
+        cd ..
         make
+        
